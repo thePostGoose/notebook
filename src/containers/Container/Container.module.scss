@@ -1,0 +1,14 @@
+.Container{
+  width: 80%;
+  margin-top: 5em;
+  max-width: 1000px;
+  h1{
+    text-align: center;
+    font-weight: 400;
+    margin: 0 0 1em;
+  }
+  main{
+    display: flex;
+    flex-direction: column;
+  }
+}

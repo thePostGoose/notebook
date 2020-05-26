@@ -1,0 +1,21 @@
+@import '../../../variables.module.scss';
+
+.inputs-container {
+  width: 100%;
+  .title{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+}
+.loader-container{
+  text-align: center;
+}
+.success-message, .error-message{
+  text-align: center;
+  font-size: 1rem;
+}
+.error-message{
+  color: $attantion;
+}

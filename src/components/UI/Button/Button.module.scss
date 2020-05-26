@@ -1,0 +1,31 @@
+@import '../../../variables.module.scss';
+
+.Button {
+  outline: none;
+  border-radius: .8em;
+  padding: 1em 2em;
+  margin: 0.5em;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75rem;
+  border: 1px solid $attantion;
+  color: $attantion;
+  background: $bgc;
+  font: inherit;
+  &:hover {
+    box-shadow: 0 0 .5em .1em lighten($attantion, 30%);
+  }
+
+  &:disabled {
+    background: lighten($bgc, 1%);
+    color: lighten($attantion, 30%);
+    cursor: not-allowed;
+    border-color: lighten($attantion, 30%);
+    &:hover {
+      text-decoration: none;
+      box-shadow: 0 0 0 0 #fff;
+    }
+  }
+
+}

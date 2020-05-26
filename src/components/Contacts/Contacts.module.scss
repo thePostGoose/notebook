@@ -1,0 +1,21 @@
+@import "../../variables.module.scss";
+
+.Contacts{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  & > button{
+    flex-grow: 1;
+    border-color: $attantion;
+  }
+  &.disabled:hover::after{
+    content: 'авторизуйтесь что бы перейти в контакты';
+    display: block;
+    color: $attantion;
+    text-align: right;
+    border-radius: .3em;
+    padding: 1em;
+
+  }
+}

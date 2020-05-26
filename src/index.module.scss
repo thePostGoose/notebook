@@ -1,0 +1,27 @@
+@import './variables.module.scss';
+
+:root{
+  font-size: calc(0.5em + 1vw);
+}
+
+*, *::after, *::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+body {
+  margin: 0;
+  font: 1rem "Century Gothic", Futura, sans-serif;
+  background-color: $bgc;
+  color: $text;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+

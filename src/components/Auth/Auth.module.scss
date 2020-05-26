@@ -1,0 +1,29 @@
+@import "../../variables.module.scss";
+
+.Auth {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+
+  &>button {
+    flex-grow: 1;
+    border-color: $attantion;
+  }
+
+  &.disabled:hover {
+    position: relative;
+
+    &::after {
+      content: 'вы уже авторизовались';
+      display: block;
+      position: absolute;
+      top: 3em;
+      color: $attantion;
+      text-align: left;
+      border-radius: .3em;
+      padding: 1em;
+
+    }
+  }
+}
