@@ -13,12 +13,11 @@ export default class Auth extends Component {
       isClicked: !this.state.isClicked,
     });
   };
-  onClickRegisterHandler = () => {};
   render() {
     const cls = [classes.Auth];
     if (this.props.disabled) cls.push(classes.disabled);
     return (
-      <div className={cls.join(' ')}>
+      <div className={cls.join(" ")}>
         <Button
           onClick={this.onClickAuthHandler}
           disabled={this.props.disabled}
@@ -27,7 +26,11 @@ export default class Auth extends Component {
         </Button>
         {this.state.isClicked && !this.props.disabled && (
           <section>
-            <LoginForm isClicked={this.state.isClicked} />
+            <LoginForm
+              isClicked={this.state.isClicked}
+              isValid={this.props.isValid}
+              clearErrorMessageAtForm={this.props.clearErrorMessageAtForm}
+            />
           </section>
         )}
       </div>

@@ -1,0 +1,11 @@
+@import '../../variables.module.scss';
+
+
+
+.wrapper {
+  font-size: calc(0.5rem + .2vw);
+  border: 2px solid $border;
+  border-radius: 1em;
+  padding: 2em;
+  padding-bottom: 0;
+}

@@ -3,15 +3,6 @@
 
   font-size: 0.7rem;
   overflow: hidden;
-  & button {
-    border: none;
-    color: $text;
-    align-self: flex-end;
-    &:hover {
-      box-shadow: 0 0 0 0 #000;
-     text-decoration: underline;
-    }
-  }
 
 
   &.fade {

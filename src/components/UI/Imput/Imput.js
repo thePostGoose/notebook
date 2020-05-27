@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./imput.module.scss";
 
-const Imput = ({ onChange, type, value, label, errorMessage, valid }) => {
+const Imput = ({ onChange, type, value, label, errorMessage, valid = true}) => {
   type = type || "text";
   const cls = [classes.Imput];
   const id = `${type} - ${Math.random()}`;

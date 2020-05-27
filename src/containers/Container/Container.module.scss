@@ -1,7 +1,10 @@
 .Container{
   width: 80%;
-  margin-top: 5em;
+  margin-top: 1em;
   max-width: 1000px;
+  &.home {
+    margin-top: 5em;
+  }
   h1{
     text-align: center;
     font-weight: 400;

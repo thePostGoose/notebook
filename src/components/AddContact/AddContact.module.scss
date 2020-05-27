@@ -1,0 +1,33 @@
+@import '../../variables.module.scss';
+
+.AddContact {
+  border: 2px solid $text;
+  padding: 1em;
+  border-radius: 1em;
+  margin-top: 2em;
+  .wrapper {
+
+    display: flex;
+    // align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &>button {
+      align-self: center;
+    }
+  }
+
+  & h3 {
+    text-align: center;
+    padding: .4em;
+  }
+
+  .inputs-container {
+    flex-grow: 1;
+    min-width: 150px;
+
+    div.Input {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -13,18 +13,44 @@
   color: $attantion;
   background: $bgc;
   font: inherit;
+
   &:hover {
     box-shadow: 0 0 .5em .1em lighten($attantion, 30%);
   }
+
 
   &:disabled {
     background: lighten($bgc, 1%);
     color: lighten($attantion, 30%);
     cursor: not-allowed;
     border-color: lighten($attantion, 30%);
+
     &:hover {
       text-decoration: none;
       box-shadow: 0 0 0 0 #fff;
+    }
+  }
+
+  &.textBtn {
+    border: none;
+    color: $text;
+    align-self: flex-end;
+
+    &:hover {
+      box-shadow: 0 0 0 0 #000;
+      text-decoration: underline;
+    }
+
+    &:disabled {
+      background: lighten($bgc, 1%);
+      color: lighten($text, 10%);
+      cursor: not-allowed;
+      position: relative;
+
+      &:hover {
+        text-decoration: none;
+        box-shadow: 0 0 0 0 #fff;
+      }
     }
   }
 

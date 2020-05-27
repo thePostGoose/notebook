@@ -3,20 +3,6 @@ import classes from "./LoginForm.module.scss";
 import Registration from "./Registration/Registration";
 import Login from "./LogIn/Login";
 
-// ({
-//   login,
-//   onClick,
-//   onCange,
-//   value,
-//   isClicked,
-//   valid
-// }) =>
-
-function validateEmail(email) {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
-
 export default class LoginForm extends Component {
   state = {
     willReg: false,
@@ -42,24 +28,19 @@ export default class LoginForm extends Component {
   };
 
   onRegisterTogleClick = () => {
+    this.props.clearErrorMessageAtForm();
     this.setState({
       willReg: !this.state.willReg,
       touched: false,
     });
   };
   onLoginTogleClick = () => {
+    this.props.clearErrorMessageAtForm();
     this.setState({
       willReg: !this.state.willReg,
       touched: false,
     });
   };
-
-  valid(value, touched, type) {
-    if (!touched) return true;
-    if (type === "login") return validateEmail(value);
-    if (type === "password") return value.length > 5;
-    else return value !== "";
-  }
 
   render() {
     const cls = [classes.LoginForm];
@@ -73,7 +54,7 @@ export default class LoginForm extends Component {
             password={this.state.password}
             onChange={(e) => this.onChange(e)}
             touched={this.state.touched}
-            valid={this.valid}
+            valid={this.props.isValid}
           />
         ) : (
           <Login
@@ -82,7 +63,7 @@ export default class LoginForm extends Component {
             password={this.state.password}
             onChange={(e) => this.onChange(e)}
             touched={this.state.touched}
-            valid={this.valid}
+            valid={this.props.isValid}
           />
         )}
       </form>

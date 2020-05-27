@@ -17,9 +17,10 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const app = (
   <Router>
-    <App />
+    <App/>
   </Router>
 );
 

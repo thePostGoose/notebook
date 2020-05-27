@@ -1,3 +1,14 @@
-.Search{
-  
+@import '../../variables.module.scss';
+
+.Search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid lighten($border, 0%);
+  padding-bottom: 1em;
+
+  &>div {
+    width: 100%;
+    text-align: center;
+  }
 }

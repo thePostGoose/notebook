@@ -1,15 +1,15 @@
 import React from "react";
 import classes from "./Button.module.scss";
-const Button = (props) => {
-
-
+const Button = ({onClick, disabled, children, text}) => {
+  const cls = [classes.Button]
+  if(text) cls.push(classes.textBtn)
   return (
     <button
-      onClick={props.onClick}
-      disabled={props.disabled}
-      className={classes.Button}
+      onClick={onClick}
+      disabled={disabled}
+      className={cls.join(' ')}
     >
-      {props.children}
+      {children}
     </button>
   );  
 };

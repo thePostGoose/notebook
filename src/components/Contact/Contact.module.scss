@@ -1,0 +1,25 @@
+@import '../../variables.module.scss';
+
+.Contact {
+  display: flex;
+  width: 40%;
+  min-width: 150px;
+  border: 2px solid $border;
+  padding: 0 0 0 2em;
+  border-radius: 1em;
+  margin: 1em auto;
+  align-items: center;
+  .str {
+
+    margin: 1em 0;
+  }
+
+  Button {
+    right: 10%;
+    top: 50%;
+    border: none;
+    padding: .5em;
+    align-self: flex-start;
+    margin-left: auto;
+  }
+}

@@ -37,12 +37,13 @@ const Login = ({
         errorMessage={"Пароль должен содержать минимум 6 символов"}
       />
       <hendlerContext.Consumer>
-        {({ _, loginHandler, loading, auth }) => {
+        {({ _, loginHandler, loading, authStatus }) => {
           return (
             <>
               <Button
                 onClick={(e) => loginHandler(e, login, password)}
                 disabled={disabled}
+                text={true}
               >
                 Войти
               </Button>
@@ -53,16 +54,18 @@ const Login = ({
               ) : (
                 false
               )}
-              {auth ? (
+              {authStatus ? (
                 <p className={classes["error-message"]}>
-                  Произошла ошиба! {auth}
+                  Произошла ошиба! {authStatus}
                 </p>
               ) : null}
             </>
           );
         }}
       </hendlerContext.Consumer>
-      <Button onClick={onRegisterTogleClick}>Еще нет аккаунта?</Button>
+      <Button onClick={onRegisterTogleClick} text={true}>
+        Еще нет аккаунта?
+      </Button>
     </div>
   );
 };
