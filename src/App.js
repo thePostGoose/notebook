@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import "./App.module.scss";
-import { Route } from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Home from "./containers/Home/Home";
 import ContactPage from "./containers/ContactPage/ContactPage";
 import firebase from "firebase/app";
 import "firebase/auth";
-
 export default class App extends Component {
   state = {
     uid: null,
@@ -54,30 +53,34 @@ export default class App extends Component {
   render() {
     return (
       <Layout>
-        <Route
-          path="/"
-          exact
-          render={(props) => (
-            <Home
-              isAuth={!!this.state.uid}
-              isValid={this.isValid}
-              logOut={this.logOut}
-              {...props}
+        <HashRouter>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={(props) => (
+                <Home
+                  isAuth={!!this.state.uid}
+                  isValid={this.isValid}
+                  logOut={this.logOut}
+                  {...props}
+                />
+              )}
             />
-          )}
-        />
-        <Route
-          path="/contacts"
-          exact
-          render={(props) => (
-            <ContactPage
-              isValid={this.isValid}
-              uid={this.state.uid}
-              logOut={this.logOut}
-              {...props}
+            <Route
+              path="/contacts"
+              render={(props) => (
+                <ContactPage
+                  isValid={this.isValid}
+                  uid={this.state.uid}
+                  logOut={this.logOut}
+                  {...props}
+                />
+              )}
             />
-          )}
-        />
+            <Redirect to="/" />
+          </Switch>
+        </HashRouter>
       </Layout>
     );
   }
