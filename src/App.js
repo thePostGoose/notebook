@@ -4,35 +4,42 @@ import { Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Home from "./containers/Home/Home";
 import ContactPage from "./containers/ContactPage/ContactPage";
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default class App extends Component {
   state = {
     uid: null,
     route: "home",
   };
+
   componentDidMount() {
-    this.setState({
-      uid: JSON.parse(sessionStorage.getItem("uid")) || null,
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          uid: user.uid,
+        });
+      } else {
+        this.setState({
+          uid: null,
+        });
+      }
     });
   }
+
   logOut = (history) => {
-    sessionStorage.removeItem("uid");
-    this.setState({
-      uid: null,
-    });
-    history.push("/");
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        history.push("/");
+      });
   };
 
   validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
-
-  getUID = (uid) => {
-    sessionStorage.setItem("uid", JSON.stringify(uid));
-    this.setState({
-      uid,
-    });
-  };
 
   isValid = (value, touched, type) => {
     if (!touched) return true;
@@ -52,7 +59,6 @@ export default class App extends Component {
           exact
           render={(props) => (
             <Home
-              getUID={this.getUID}
               isAuth={!!this.state.uid}
               isValid={this.isValid}
               logOut={this.logOut}

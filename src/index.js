@@ -4,7 +4,7 @@ import "./index.module.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 var firebaseConfig = {
   apiKey: "AIzaSyC56_U8Gh6clNYOenHyI1ngA2rrARQf-Pk",

@@ -8,38 +8,80 @@ export default class AddContact extends Component {
     email: "",
     name: "",
     tel: "",
+    isNameValid: true,
+    isEmailValid: true,
+    isTelValid: true,
     triedToSubmit: false,
+    addedEarly: false,
   };
 
   emailOnChangeHandler = (event) => {
-    this.setState({
-      email: event.target.value,
-    });
+    const isEmailValid = this.props.isValid(event.target.value, true, "email");
+    if (this.state.triedToSubmit) {
+      this.setState({
+        email: event.target.value,
+        isEmailValid,
+      });
+    } else {
+      this.setState({
+        email: event.target.value,
+      });
+    }
   };
   nameOnChangeHandler = (event) => {
-    this.setState({
-      name: event.target.value,
-    });
+    const isNamelValid = this.props.isValid(event.target.value, true, "name");
+    if (this.state.triedToSubmit) {
+      this.setState({
+        name: event.target.value,
+        isNamelValid,
+      });
+    } else {
+      this.setState({
+        name: event.target.value,
+      });
+    }
   };
   telOnChangeHandler = (event) => {
-    const tel = event.target.value.toString();
-    this.setState({
-      tel,
-    });
+    const isTelValid = this.props.isValid(event.target.value, true, "tel");
+    if (isTelValid && this.state.triedToSubmit) {
+      this.setState({
+        tel: event.target.value,
+        isTelValid,
+      });
+    } else {
+      this.setState({
+        tel: event.target.value,
+      });
+    }
   };
-  onClickHandler = (event, isFormValid, email, name, tel) => {
+  onClickHandler = (event, email, name, tel) => {
     event.preventDefault();
-    if (!this.state.triedToSubmit) {
+    const isEmailValid = this.props.isValid(email, true, "email");
+    const isNameValid = this.props.isValid(name, true, "name");
+    const isTelValid = this.props.isValid(tel, true, "tel");
+    const isFormValid = isEmailValid && isNameValid && isTelValid;
+
+    if (isFormValid) {
+      const status = this.props.addNewContact(email, name, tel);
+      if (status) {
+        this.setState({
+          email: "",
+          name: "",
+          tel: "",
+          triedToSubmit: false,
+          addedEarly: false,
+        });
+      } else
+        this.setState({
+          triedToSubmit: true,
+          addedEarly: true,
+        });
+    } else {
       this.setState({
         triedToSubmit: true,
-      });
-    } else if (isFormValid) {
-      this.props.addNewContact(email, name, tel);
-      this.setState({
-        email: "",
-        name: "",
-        tel: "",
-        triedToSubmit: false,
+        isEmailValid,
+        isNameValid,
+        isTelValid,
       });
     }
   };
@@ -48,19 +90,6 @@ export default class AddContact extends Component {
     const email = this.state.email;
     const tel = this.state.tel;
     const name = this.state.name;
-    const isValidEmail = this.props.isValid(
-      email,
-      this.state.triedToSubmit,
-      "email"
-    );
-    const isValidTel = this.props.isValid(tel, this.state.triedToSubmit, "tel");
-    const isValidName = this.props.isValid(
-      name,
-      this.state.triedToSubmit,
-      "name"
-    );
-    const isFormValid = isValidEmail && isValidTel && isValidName;
-    // const isFormValid = isValidEmail &&;
     return (
       <section className={classes.AddContact}>
         <h3>Добавить контакт</h3>
@@ -71,33 +100,38 @@ export default class AddContact extends Component {
               value={name}
               label={"имя"}
               errorMessage={"Имя не может быть пустым"}
-              valid={isValidName}
+              valid={this.state.isNameValid}
             />
             <Imput
               onChange={this.emailOnChangeHandler}
               value={email}
               label={"email"}
               errorMessage={"Введите корректный email"}
-              valid={isValidEmail}
+              valid={this.state.isEmailValid}
             />
             <Imput
               onChange={this.telOnChangeHandler}
               value={tel}
               label={"номер телефона"}
               errorMessage={"Введите телефон в формате +71234567890"}
-              valid={isValidTel}
+              valid={this.state.isTelValid}
             />
           </div>
           <Button
             text={true}
             onClick={(event) => {
-              this.onClickHandler(event, isFormValid, email, name, tel);
+              this.onClickHandler(event, email, name, tel);
             }}
           >
             {" "}
             Добавить
           </Button>
         </form>
+        {this.state.addedEarly ? (
+          <p className={classes["error-message"]}>
+            контакт уже был добавлен ранее
+          </p>
+        ) : null}
       </section>
     );
   }

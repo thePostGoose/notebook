@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Contact.module.scss";
 import Button from "../UI/Button/Button";
-const Contact = ({ name, email, tel, deleteHandler }) => {
+const Contact = ({ name, email, tel, onClick }) => {
   return (
     <div className={classes.Contact}>
       <div className={"info-container"}>
@@ -9,7 +9,7 @@ const Contact = ({ name, email, tel, deleteHandler }) => {
         <p className={classes.str}>{email}</p>
         <p className={classes.str}>{tel}</p>
       </div>
-      <Button>x</Button>
+      <Button onClick={onClick}>x</Button>
     </div>
   );
 };

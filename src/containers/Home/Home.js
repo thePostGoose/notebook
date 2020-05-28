@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Container from "../Container/Container";
 import Auth from "../../components/Auth/Auth";
 import Contacts from "../../components/Contacts/Contacts";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 import classes from "./Home.module.scss";
 import Button from "../../components/UI/Button/Button";
 export const hendlerContext = React.createContext();
@@ -11,6 +12,12 @@ export default class Home extends Component {
   state = {
     loading: false,
     authStatus: null,
+  };
+  logOut = (history) => {
+    this.props.logOut(history);
+    this.setState({
+      authStatus: null,
+    });
   };
   goToContacts = () => {
     this.props.history.push("/contacts");
@@ -24,14 +31,9 @@ export default class Home extends Component {
     event.preventDefault();
     this.setState({
       loading: true,
-      authStatus: null,
     });
     try {
-      const user = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-      const uid = user.user.uid;
-      this.props.getUID(uid);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
       this.setState({
         loading: false,
         authStatus: "success register",
@@ -48,14 +50,9 @@ export default class Home extends Component {
     event.preventDefault();
     this.setState({
       loading: true,
-      authStatus: null,
     });
     try {
-      const user = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-      const uid = user.user.uid;
-      this.props.getUID(uid);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
       this.setState({
         loading: false,
         authStatus: "success login",
@@ -101,7 +98,7 @@ export default class Home extends Component {
         {disabled ? message : null}
         <Contacts isAuth={this.props.isAuth} onClick={this.goToContacts} />
         {this.props.isAuth ? (
-          <Button text={true} onClick={() => this.props.logOut(history)}>
+          <Button text={true} onClick={() => this.logOut(history)}>
             Выйти
           </Button>
         ) : null}

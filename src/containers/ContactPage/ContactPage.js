@@ -4,44 +4,50 @@ import classes from "./ContactPage.module.scss";
 import Search from "../../components/Search/Search";
 import ContactList from "../../components/ContactList/ContactList";
 import Button from "../../components/UI/Button/Button";
-
-function filterAddedContacts(list, email, name, tel) {
-  if (
-    list.email.toLowerCase() === email.toLowerCase() &&
-    list.name.toLowerCase() === name.toLowerCase() &&
-    list.tel.toLowerCase() === tel.toLowerCase()
-  ) {
-    return true;
-  }
-  return false;
-}
+import NewContact from "../../components/AddContact/NewContact/NewContact";
+import firebase from "firebase/app";
+import "firebase/database";
 
 export default class ContactPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: null,
-      contacts: [
-        {
-          name: "Jon Doe",
-          email: "test@test.test",
-          tel: "+79643212343",
-        },
-        {
-          name: "Ivan Putin",
-          email: "res@res.res",
-          tel: "+71111111111",
-        },
-      ],
+      uid: this.props.uid,
+      contacts: [],
       search: "",
+      newContact: {},
+      loading: false,
     };
   }
+
+  writeUserData = (newContact) => {
+    firebase
+      .database()
+      .ref(`/${this.state.uid}/${newContact.hash}/`)
+      .set(newContact);
+  };
+
   componentDidMount() {
-    const uid = JSON.parse(sessionStorage.getItem("uid")) || null;
     this.setState({
-      uid,
+      loading: true
+    })
+    if (!this.state.uid) this.props.history.push("/");
+    let ref = firebase.database().ref(`/${this.state.uid}/`);
+    ref.on("value", (snapshot) => {
+      const contacts = [];
+      const state = snapshot.val();
+      for (let key in state) {
+        contacts.push(
+          new NewContact(state[key].name, state[key].email, state[key].tel)
+        );
+      }
+      this.setState({ contacts, loading: false });
     });
-    if (!uid) this.props.history.push("/");
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      this.writeUserData(this.state.newContact);
+    }
   }
 
   searchOnChangeHandler = (event) => {
@@ -49,21 +55,21 @@ export default class ContactPage extends Component {
       search: event.target.value,
     });
   };
+
   addNewContact = (email, name, tel) => {
-    console.log(this.state.contacts)
-    if (
-      this.state.contacts.filter((list) =>
-        filterAddedContacts(list, email, name, tel)
-      ).length === 0
-    ) {
+    const newContact = new NewContact(name, email, tel);
+
+    if (!this.state.contacts.some((list) => list.hash === newContact.hash)) {
       this.setState({
-        contacts: this.state.contacts.concat({
-          email,
-          name,
-          tel,
-        }),
+        contacts: this.state.contacts.concat(newContact),
+        newContact,
       });
+      return true;
     }
+    return false;
+  };
+  deleteHandler = (hash) => {
+    firebase.database().ref(`/${this.state.uid}/${hash}/`).remove();
   };
   render() {
     const history = this.props.history;
@@ -79,6 +85,8 @@ export default class ContactPage extends Component {
             search={this.state.search}
             isValid={this.props.isValid}
             addNewContact={this.addNewContact}
+            deleteHandler={this.deleteHandler}
+            loading={this.state.loading}
           />
         </div>
         <Button text={true} onClick={() => this.props.logOut(history)}>
