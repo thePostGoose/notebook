@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Registration.module.scss";
-import Imput from "../../UI/Imput/Imput";
+import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { hendlerContext } from "../../../containers/Home/Home";
 import Loader from "../../UI/Loader/Loader";
@@ -18,7 +18,7 @@ const Registration = ({
   return (
     <div className={classes["inputs-container"]}>
       <p className={classes.title}>регистрация</p>
-      <Imput
+      <Input
         onChange={onChange}
         value={login}
         touched={false}
@@ -26,7 +26,7 @@ const Registration = ({
         valid={validLogin}
         errorMessage={"Логином может быть только email"}
       />
-      <Imput
+      <Input
         onChange={onChange}
         type={"password"}
         value={password}

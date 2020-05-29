@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Login.module.scss";
-import Imput from "../../UI/Imput/Imput";
+import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { hendlerContext } from "../../../containers/Home/Home";
 import Loader from "../../UI/Loader/Loader";
@@ -19,7 +19,7 @@ const Login = ({
   return (
     <div className={classes["inputs-container"]}>
       <p className={classes.title}>вход</p>
-      <Imput
+      <Input
         onChange={onChange}
         value={login}
         touched={false}
@@ -27,7 +27,7 @@ const Login = ({
         valid={validLogin}
         errorMessage={"Логином может быть только email"}
       />
-      <Imput
+      <Input
         onChange={onChange}
         type={"password"}
         value={password}
@@ -54,6 +54,9 @@ const Login = ({
               ) : (
                 false
               )}
+              <Button onClick={onRegisterTogleClick} text={true}>
+                Еще нет аккаунта?
+              </Button>
               {authStatus ? (
                 <p className={classes["error-message"]}>
                   Произошла ошиба! {authStatus}
@@ -63,9 +66,6 @@ const Login = ({
           );
         }}
       </hendlerContext.Consumer>
-      <Button onClick={onRegisterTogleClick} text={true}>
-        Еще нет аккаунта?
-      </Button>
     </div>
   );
 };

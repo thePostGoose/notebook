@@ -8,8 +8,9 @@
   padding-top: 1em;
   display: flex;
   flex-wrap: wrap;
-  div{
-    margin: 1em auto;
+
+  .loader {
+    margin: auto !important;
   }
 
   .not-found {

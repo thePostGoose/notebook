@@ -2,24 +2,59 @@
 
 .Contact {
   display: flex;
-  width: 40%;
-  min-width: 150px;
+  min-width: 40%;
   border: 2px solid $border;
   padding: 0 0 0 2em;
   border-radius: 1em;
   margin: 1em auto;
   align-items: center;
-  .str {
+  justify-content: space-between;
+  order: 2;
+  & .btn-container {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0;
+  }
 
-    margin: 1em 0;
+  &.isModifiing {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    order: 1;
+
+    & .inputs-container {
+      width: 100%;
+      max-width: 80%;
+      margin: 0;
+    }
+
+    & .btn-container {
+      display: flex;
+      align-self: stretch;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 0;
+
+      & Button:last-child {
+        padding: 0 2em;
+        margin: 0 0 1em 0;
+        align-self: center;
+      }
+    }
+
   }
 
   Button {
-    right: 10%;
-    top: 50%;
     border: none;
     padding: .5em;
-    align-self: flex-start;
-    margin-left: auto;
   }
+}
+
+.str {
+  margin: 1em 0;
 }

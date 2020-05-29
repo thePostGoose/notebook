@@ -17,18 +17,27 @@ const ContactList = ({
   isValid,
   addNewContact,
   deleteHandler,
+  changeHandler,
   loading,
 }) => {
   const searchedContacts = contacts
     .filter((item) => searchContact(item, search))
-    .map((item, index) => {
+    .sort(
+      (a, b) =>
+        a.name[0].toLowerCase().charCodeAt(0) -
+        b.name[0].toLowerCase().charCodeAt(0)
+    )
+    .map((item) => {
       return (
         <Contact
           name={item.name}
           tel={item.tel}
           email={item.email}
-          key={index}
-          onClick={() => deleteHandler(item.hash)}
+          hash={item.hash}
+          key={item.hash}
+          deleteHandler={deleteHandler}
+          changeHandler={changeHandler}
+          isValid={isValid}
         />
       );
     });
@@ -37,10 +46,10 @@ const ContactList = ({
       <AddContact isValid={isValid} addNewContact={addNewContact} />
       {searchedContacts.length && loading ? <Loader /> : null}
       <div className={classes.container}>
-        {(searchedContacts.length)? (
+        {searchedContacts.length ? (
           searchedContacts
         ) : loading ? (
-         <Loader />
+          <Loader cls={classes.loader} />
         ) : (
           <p className={classes["not-found"]}>список контактов пуст!</p>
         )}

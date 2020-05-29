@@ -13,6 +13,7 @@ export default class LoginForm extends Component {
 
   onChange = (event) => {
     const touched = true;
+    this.props.clearErrorMessageAtForm();
     if (event.target.type === "password") {
       this.setState({
         password: event.target.value,

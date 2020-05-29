@@ -12,7 +12,7 @@ export default class ContactPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: this.props.uid,
+      uid: sessionStorage.getItem("uid") || this.props.uid,
       contacts: [],
       search: "",
       newContact: {},
@@ -29,8 +29,8 @@ export default class ContactPage extends Component {
 
   componentDidMount() {
     this.setState({
-      loading: true
-    })
+      loading: true,
+    });
     if (!this.state.uid) this.props.history.push("/");
     let ref = firebase.database().ref(`/${this.state.uid}/`);
     ref.on("value", (snapshot) => {
@@ -69,7 +69,14 @@ export default class ContactPage extends Component {
     return false;
   };
   deleteHandler = (hash) => {
-    firebase.database().ref(`/${this.state.uid}/${hash}/`).remove();
+    firebase.database().ref(`/${this.state.uid}/${hash}/`).remove().then()
+    this.setState({
+      newContact: {},
+    });
+  };
+  changeHandler = (hash, updates) => {
+    this.deleteHandler(hash);
+    this.writeUserData(updates);
   };
   render() {
     const history = this.props.history;
@@ -86,6 +93,7 @@ export default class ContactPage extends Component {
             isValid={this.props.isValid}
             addNewContact={this.addNewContact}
             deleteHandler={this.deleteHandler}
+            changeHandler={this.changeHandler}
             loading={this.state.loading}
           />
         </div>

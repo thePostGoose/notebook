@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "./imput.module.scss";
+import classes from "./input.module.scss";
 
-const Imput = ({ onChange, type, value, label, errorMessage, valid = true}) => {
+const Input = ({ onChange, type, value, label, errorMessage, valid = true}) => {
   type = type || "text";
-  const cls = [classes.Imput];
+  const cls = [classes.Input];
   const id = `${type} - ${Math.random()}`;
 
   if (!valid) cls.push(classes.invalid);
@@ -21,4 +21,4 @@ const Imput = ({ onChange, type, value, label, errorMessage, valid = true}) => {
   );
 };
 
-export default Imput;
+export default Input;

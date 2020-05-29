@@ -15,6 +15,7 @@ export default class App extends Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        sessionStorage.setItem("uid", user.uid);
         this.setState({
           uid: user.uid,
         });
@@ -32,6 +33,7 @@ export default class App extends Component {
       .signOut()
       .then(function () {
         history.push("/");
+        sessionStorage.removeItem("uid");
       });
   };
 

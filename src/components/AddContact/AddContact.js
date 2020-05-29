@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./AddContact.module.scss";
 import Button from "../UI/Button/Button";
-import Imput from "../UI/Imput/Imput";
+import Input from "../UI/Input/Input";
 
 export default class AddContact extends Component {
   state = {
@@ -95,21 +95,21 @@ export default class AddContact extends Component {
         <h3>Добавить контакт</h3>
         <form className={classes.wrapper}>
           <div className={classes["inputs-container"]}>
-            <Imput
+            <Input
               onChange={this.nameOnChangeHandler}
               value={name}
               label={"имя"}
               errorMessage={"Имя не может быть пустым"}
               valid={this.state.isNameValid}
             />
-            <Imput
+            <Input
               onChange={this.emailOnChangeHandler}
               value={email}
               label={"email"}
               errorMessage={"Введите корректный email"}
               valid={this.state.isEmailValid}
             />
-            <Imput
+            <Input
               onChange={this.telOnChangeHandler}
               value={tel}
               label={"номер телефона"}
