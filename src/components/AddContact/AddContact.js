@@ -16,43 +16,36 @@ export default class AddContact extends Component {
   };
 
   emailOnChangeHandler = (event) => {
-    const isEmailValid = this.props.isValid(event.target.value, true, "email");
-    if (this.state.triedToSubmit) {
-      this.setState({
-        email: event.target.value,
-        isEmailValid,
-      });
-    } else {
-      this.setState({
-        email: event.target.value,
-      });
-    }
+    const isTouched = this.state.triedToSubmit;
+    const isEmailValid = this.props.isValid(
+      event.target.value,
+      isTouched,
+      "email"
+    );
+    this.setState({
+      email: event.target.value,
+      isEmailValid,
+    });
   };
   nameOnChangeHandler = (event) => {
-    const isNamelValid = this.props.isValid(event.target.value, true, "name");
-    if (this.state.triedToSubmit) {
-      this.setState({
-        name: event.target.value,
-        isNamelValid,
-      });
-    } else {
-      this.setState({
-        name: event.target.value,
-      });
-    }
+    const isTouched = this.state.triedToSubmit;
+    const isNameValid = this.props.isValid(
+      event.target.value,
+      isTouched,
+      "name"
+    );
+    this.setState({
+      name: event.target.value,
+      isNameValid,
+    });
   };
   telOnChangeHandler = (event) => {
-    const isTelValid = this.props.isValid(event.target.value, true, "tel");
-    if (isTelValid && this.state.triedToSubmit) {
-      this.setState({
-        tel: event.target.value,
-        isTelValid,
-      });
-    } else {
-      this.setState({
-        tel: event.target.value,
-      });
-    }
+    const isTouched = this.state.triedToSubmit;
+    const isTelValid = this.props.isValid(event.target.value, isTouched, "tel");
+    this.setState({
+      tel: event.target.value,
+      isTelValid,
+    });
   };
   onClickHandler = (event, email, name, tel) => {
     event.preventDefault();

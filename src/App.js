@@ -48,7 +48,7 @@ export default class App extends Component {
       return this.validateEmail(value);
     if (type.includes("password")) return value.length > 6;
     if (type.includes("name")) return value.length !== 0;
-    if (type.includes("tel")) return /^\+7\d{10}/.test(String(value));
+    if (type.includes("tel")) return /^\+7\d{10}$/.test(String(value));
     else return value !== "";
   };
 

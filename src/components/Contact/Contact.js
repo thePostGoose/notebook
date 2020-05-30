@@ -51,6 +51,14 @@ export default class Contact extends Component {
   };
   saveChangedContact = () => {
     if (!(this.state.name && this.state.email && this.state.tel)) return;
+    if (
+      !(
+        this.state.isNameValid &&
+        this.state.isEmailValid &&
+        this.state.isTelValid
+      )
+    )
+      return;
     const updates = new NewContact(
       this.state.name,
       this.state.email,
