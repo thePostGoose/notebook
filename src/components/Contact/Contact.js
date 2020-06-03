@@ -76,6 +76,18 @@ export default class Contact extends Component {
       });
     }
   };
+  exitWithoutChanging = () => {
+    const name = this.props.name;
+    const email = this.props.email;
+    const tel = this.props.tel;
+    this.setState({
+      name,
+      email,
+      tel,
+      isModifiing: !this.state.isModifiing,
+    });
+  };
+
   deleteHandler = () => {
     this.props.deleteHandler(this.state.hash);
   };
@@ -116,13 +128,18 @@ export default class Contact extends Component {
           </div>
         )}
         <div className={classes["btn-container"]}>
-          <Button onClick={this.deleteHandler}>x</Button>
           {!this.state.isModifiing ? (
-            <Button onClick={this.toggleModifying}>изменить</Button>
+            <>
+              <Button onClick={this.deleteHandler}>x</Button>
+              <Button onClick={this.toggleModifying}>изменить</Button>
+            </>
           ) : (
-            <Button onClick={this.saveChangedContact} text={"true"}>
-              применить
-            </Button>
+            <>
+              <Button onClick={this.exitWithoutChanging}>x</Button>
+              <Button onClick={this.saveChangedContact} text={"true"}>
+                применить
+              </Button>
+            </>
           )}
         </div>
       </div>
